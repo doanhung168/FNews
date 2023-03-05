@@ -1,7 +1,8 @@
-package com.poly_team.fnews
+package com.poly_team.fnews.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.poly_team.fnews.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
