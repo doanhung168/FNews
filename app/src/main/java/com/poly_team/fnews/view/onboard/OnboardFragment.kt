@@ -15,6 +15,6 @@ class OnboardFragment : BaseFragment<FragmentOnboardBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Handler(Looper.getMainLooper())
-            .postDelayed({ mNavController.navigate(R.id.welcomeFragment) }, 1500)
+            .postDelayed({ mNavController.navigate(R.id.loginFragment) }, 1500)
     }
 }

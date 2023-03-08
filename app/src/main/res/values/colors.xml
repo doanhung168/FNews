@@ -11,4 +11,5 @@
     <color name="primary_extra_light">#FFEFD8</color>
     <color name="dark">#494343</color>
     <color name="light">#E4E4E4</color>
+    <color name="error_color">#DA2E2E</color>
 </resources>

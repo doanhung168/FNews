@@ -14,7 +14,6 @@
     <string name="enter_code">Nhập mã</string>
     <string name="enter_email">Nhập email của bạn</string>
     <string name="take_code">Lấy mã</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="new_password">Nhập mật khẩu mới</string>
     <string name="confirm_new_password">Nhập lại mật khẩu mới</string>
@@ -56,6 +55,17 @@
     <string name="facebook_app_id">505141825148341</string>
     <string name="fb_login_protocol_scheme">fb505141825148341</string>
     <string name="facebook_client_token">024cb64e2fe91ad4639a464fcfb91803</string>
+
+    <string name="empty_username">Vui lòng nhập tên đăng nhập</string>
+    <string name="invalid_username">Vui lòng nhập tên đăng nhập từ 6 kí tự trở lên</string>
+    <string name="empty_password">Vui lòng nhập mật khẩu</string>
+    <string name="invalid_password">Vui lòng nhập mật khẩu từ 8 kí tự trở lên, có kí tự viết hoa và kí tự đặc biệt</string>
+    <string name="empty_email">Vui lòng nhập email</string>
+    <string name="invalid_email">Vui lòng nhập đúng định dạng email</string>
+    <string name="confirm_password_false">Mật khẩu xác nhận không trùng khớp</string>
+    <string name="login_fail">Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu</string>
+    <string name="facebook_fail">Tài khoản facebook không khả dụng</string>
+    <string name="google_fail">Tài khoản google không khả dụng</string>
 
 
 </resources>
