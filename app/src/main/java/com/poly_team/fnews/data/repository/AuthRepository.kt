@@ -4,15 +4,16 @@ import android.app.Application
 import com.poly_team.fnews.data.Network
 import com.poly_team.fnews.data.NetworkResponse
 import com.poly_team.fnews.utility.Token
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 import javax.inject.Inject
 
 
 class AuthRepository @Inject constructor(
     private val mApp: Application,
-    private val mNetwork: Network
+    private val mNetwork: Network,
+    private val mDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
     companion object {
@@ -23,7 +24,7 @@ class AuthRepository @Inject constructor(
     }
 
     suspend fun login(username: String, password: String): Boolean =
-        withContext(Dispatchers.IO) {
+        withContext(mDispatcher) {
             val response = mNetwork.login(username, password)
             val result = response.body()!!.success
             if (result) {
@@ -39,7 +40,7 @@ class AuthRepository @Inject constructor(
         avatar: String,
         email: String?
     ) =
-        withContext(Dispatchers.IO) {
+        withContext(mDispatcher) {
             val response = mNetwork.loginWith(accountType, accountId, displayName, avatar, email)
             val result = response.body()!!.success
             if (result) {
@@ -49,7 +50,13 @@ class AuthRepository @Inject constructor(
         }
 
     suspend fun register(username: String, password: String, email: String): NetworkResponse =
-        withContext(Dispatchers.IO) {
+        withContext(mDispatcher) {
             return@withContext mNetwork.register(username, password, email)
         }
+
+    suspend fun findPassword(email: String) =
+        withContext(mDispatcher) {
+            return@withContext mNetwork.findPassword(email)
+        }
+
 }

@@ -70,6 +70,8 @@
     <string name="invalid_check_policy">Bạn cần chấp nhận điều khoản của chúng tôi để tiếp tục đăng ký tài khoản.</string>
     <string name="register_success">Đăng ký thành công!</string>
     <string name="confirm_password">Nhập lại mật khẩu</string>
+    <string name="watch_email_to_find_password">Vui lòng kiểm tra email để thay đổi mật khẩu mới!</string>
+    <string name="ok">Đồng ý</string>
 
 
 </resources>

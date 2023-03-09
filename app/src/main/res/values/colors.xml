@@ -12,4 +12,5 @@
     <color name="dark">#494343</color>
     <color name="light">#E4E4E4</color>
     <color name="error_color">#DA2E2E</color>
+    <color name="blue">#C8E4E4E4</color>
 </resources>

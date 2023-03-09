@@ -106,7 +106,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         mNavController.navigate(R.id.action_loginFragment_to_registerFragment)
                     }
                     NAV_FORGOT_SCREEN -> {
-                        mNavController.navigate(R.id.forgotPasswordFragment)
+                        mNavController.navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
                     }
                     HIDE_KEYBOARD_EVENT -> {
                         hideKeyboard(requireActivity())

@@ -33,5 +33,11 @@ interface Network {
         @Field("account_type") accountType: String = "local"
     ): NetworkResponse
 
+    @FormUrlEncoded
+    @POST("users/forgotPassword")
+    suspend fun findPassword(
+        @Field("email") email: String
+    ) : NetworkResponse
+
 
 }

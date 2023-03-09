@@ -62,6 +62,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/primary</item>
+        <item name="android:fontFamily">@font/balsamiq_sans</item>
     </style>
 
     <style name="AppSmallTextView">
@@ -77,6 +78,12 @@
 
     <style name="SheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:colorBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="AppErrorTextView" parent="AppSmallTextView">
+        <item name="android:singleLine">false</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/error_color</item>
     </style>
 
 </resources>
