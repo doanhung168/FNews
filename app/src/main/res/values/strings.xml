@@ -66,6 +66,10 @@
     <string name="login_fail">Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu</string>
     <string name="facebook_fail">Tài khoản facebook không khả dụng</string>
     <string name="google_fail">Tài khoản google không khả dụng</string>
+    <string name="invalid_confirm_password">Mật khẩu xác nhận không trùng khớp</string>
+    <string name="invalid_check_policy">Bạn cần chấp nhận điều khoản của chúng tôi để tiếp tục đăng ký tài khoản.</string>
+    <string name="register_success">Đăng ký thành công!</string>
+    <string name="confirm_password">Nhập lại mật khẩu</string>
 
 
 </resources>

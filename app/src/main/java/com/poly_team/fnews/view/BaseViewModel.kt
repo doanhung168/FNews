@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.poly_team.fnews.utility.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
 
-open class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     companion object {
         const val HIDE_KEYBOARD_EVENT = 111
@@ -16,5 +16,7 @@ open class BaseViewModel : ViewModel() {
 
     protected val mLoading = SingleLiveEvent<Boolean>()
     val _mLoading : LiveData<Boolean> = mLoading
+
+    abstract var mHandleException: CoroutineExceptionHandler
 
 }

@@ -103,10 +103,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         mBinding!!.tvError.text = "Success"
                     }
                     NAV_REGISTER_SCREEN -> {
-                        mNavController.navigate(R.id.registerFragment)
+                        mNavController.navigate(R.id.action_loginFragment_to_registerFragment)
                     }
                     NAV_FORGOT_SCREEN -> {
-
+                        mNavController.navigate(R.id.forgotPasswordFragment)
                     }
                     HIDE_KEYBOARD_EVENT -> {
                         hideKeyboard(requireActivity())

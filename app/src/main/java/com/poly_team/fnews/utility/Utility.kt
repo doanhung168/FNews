@@ -9,17 +9,20 @@ import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
 
 
-
 fun String.isNotValidUsername(): Boolean {
     return this.length < 6
 }
 
+//Minimum eight characters, at least one letter and one number
 fun String.isNotValidPassword(): Boolean {
-    return !this.matches(Regex("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"))
+    val result =
+        this.matches(Regex("^(?=.*\\d)(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,}$"))
+    return !result
 }
 
 fun String.isNotValidEmail(): Boolean {
-    return !this.matches(Regex("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$"))
+    val result = this.matches(Regex("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$"))
+    return !result
 }
 
 fun TextInputLayout?.text(): String {

@@ -2,12 +2,12 @@ package com.poly_team.fnews.data.repository
 
 import android.app.Application
 import com.poly_team.fnews.data.Network
+import com.poly_team.fnews.data.NetworkResponse
 import com.poly_team.fnews.utility.Token
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
 class AuthRepository @Inject constructor(
@@ -27,7 +27,7 @@ class AuthRepository @Inject constructor(
             val response = mNetwork.login(username, password)
             val result = response.body()!!.success
             if (result) {
-                Token.save(mApp, response.headers().get(AUTH_KEY)!!)
+                Token.save(mApp, response.headers()[AUTH_KEY]!!)
             }
             result
         }
@@ -43,12 +43,12 @@ class AuthRepository @Inject constructor(
             val response = mNetwork.loginWith(accountType, accountId, displayName, avatar, email)
             val result = response.body()!!.success
             if (result) {
-                Token.save(mApp, response.headers().get(AUTH_KEY)!!)
+                Token.save(mApp, response.headers()[AUTH_KEY]!!)
             }
             result
         }
 
-    suspend fun register(username: String, password: String, email: String) =
+    suspend fun register(username: String, password: String, email: String): NetworkResponse =
         withContext(Dispatchers.IO) {
             return@withContext mNetwork.register(username, password, email)
         }
