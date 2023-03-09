@@ -34,7 +34,7 @@ class LoginViewModel @Inject constructor(
     val mErrorMsg = MutableLiveData("")
 
 
-    private val mHandleException: CoroutineExceptionHandler =
+     override var mHandleException =
         CoroutineExceptionHandler { _, t ->
             run {
                 t.printStackTrace()
