@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.activity.addCallback
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -20,6 +22,7 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
     protected lateinit var mNavController: NavController
 
     abstract fun getLayout(): Int
+    abstract fun setInsets(left: Int, top: Int, right: Int, bottom: Int)
 
     @SuppressLint("ClickableViewAccessibility")
     protected fun disableScreen() {
@@ -53,6 +56,20 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mNavController = Navigation.findNavController(view)
+
+        ViewCompat.setOnApplyWindowInsetsListener(
+            requireActivity().window.decorView
+        ) { _: View?, insets: WindowInsetsCompat ->
+            val insetsValue = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            setInsets(
+                insetsValue.left,
+                insetsValue.top,
+                insetsValue.right,
+                insetsValue.bottom
+            )
+            insets
+        }
+
     }
 
     override fun onDestroyView() {

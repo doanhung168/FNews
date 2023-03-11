@@ -47,29 +47,6 @@ fun makeFullscreen(activity: Activity) {
     WindowCompat.setDecorFitsSystemWindows(activity.window, false)
 }
 
-fun updatePaddingWithSystemInsets(view: View) {
-    ViewCompat.setOnApplyWindowInsetsListener(view) { updatedView, windowInsets ->
-        val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-        updatedView.updatePadding(0, insets.top, 0, 0)
-        WindowInsetsCompat.CONSUMED
-    }
-}
-
-fun updateMarginWithSystemInsets(view: View, update: Boolean) {
-    ViewCompat.setOnApplyWindowInsetsListener(view) { updatedView, windowInsets ->
-        if (update) {
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            updatedView.updateLayoutParams<MarginLayoutParams> {
-                bottomMargin = insets.bottom
-            }
-        } else {
-            updatedView.updateLayoutParams<MarginLayoutParams> {
-                bottomMargin = 0
-            }
-        }
-        WindowInsetsCompat.CONSUMED
-    }
-}
 
 fun saveToken(app: Application, token: String) {
     val share = app.getSharedPreferences("app", Activity.MODE_PRIVATE)

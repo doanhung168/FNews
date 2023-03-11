@@ -6,7 +6,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.poly_team.fnews.R
 import com.poly_team.fnews.databinding.FragmentForgotPasswordBinding
-import com.poly_team.fnews.utility.updatePaddingWithSystemInsets
 import com.poly_team.fnews.view.BaseFragment
 import com.poly_team.fnews.view.auth.forgot_password.ForgotPasswordViewModel.Companion.TASK_SUCCESS
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +15,9 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>() {
 
     private val mViewModel: ForgotPasswordViewModel by viewModels()
     override fun getLayout(): Int = R.layout.fragment_forgot_password
+    override fun setInsets(left: Int, top: Int, right: Int, bottom: Int) {
+        mBinding!!.toolbar.setPadding(0, top, 0, 0)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,7 +28,6 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>() {
 
     private fun setupToolbar() {
         with(mBinding!!.toolbar) {
-            updatePaddingWithSystemInsets(this)
             setNavigationOnClickListener { mNavController.popBackStack() }
         }
     }

@@ -3,14 +3,13 @@ package com.poly_team.fnews.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
@@ -39,6 +38,15 @@ class MainActivity : AppCompatActivity() {
         setContentView()
         direction()
     }
+
+    override fun onStart() {
+        super.onStart()
+        val windowInsetsController =
+            WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.show(WindowInsetsCompat.Type.navigationBars())
+        windowInsetsController.isAppearanceLightNavigationBars = true
+    }
+
     private fun direction() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
@@ -80,19 +88,16 @@ class MainActivity : AppCompatActivity() {
     private fun setContentView() {
         mSplashScreen = installSplashScreen()
         mSplashScreen.setKeepOnScreenCondition { mKeepSplashScreen }
+        makeFullscreen(this)
         setContentView(R.layout.activity_main)
         setupSystemInsets()
-        makeFullscreen(this)
     }
 
     private fun setupSystemInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_nav_host)) { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            view.updateLayoutParams<MarginLayoutParams> {
-                bottomMargin = insets.bottom
-            }
-            windowInsets
+            view.setPadding(0, 0, 0, insets.bottom)
+            WindowInsetsCompat.CONSUMED
         }
     }
 

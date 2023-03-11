@@ -33,10 +33,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     lateinit var mGoogleComponent: GoogleComponent
 
     override fun getLayout() = R.layout.fragment_register
+    override fun setInsets(left: Int, top: Int, right: Int, bottom: Int) {
+        mBinding!!.root.setPadding(0, top, 0, 0)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updatePaddingWithSystemInsets(mBinding!!.root)
         setupViewModel()
         listenEvent()
         loginWithFbAction()

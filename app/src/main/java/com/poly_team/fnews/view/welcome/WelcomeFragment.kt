@@ -12,6 +12,9 @@ import com.poly_team.fnews.view.BaseFragment
 class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>() {
 
     override fun getLayout() = R.layout.fragment_welcome
+    override fun setInsets(left: Int, top: Int, right: Int, bottom: Int) {
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
