@@ -36,7 +36,7 @@ class Welcome3Fragment : Fragment() {
         mViewModel._mEvent.observe(viewLifecycleOwner) { event ->
             when (event) {
                 WelcomeViewModel.LOGO_TO_LOGIN -> {
-                    Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+                    Navigation.findNavController(requireActivity(), R.id.main_nav_host)
                         .navigate(R.id.action_welcomeFragment_to_loginFragment)
                 }
             }

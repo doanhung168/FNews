@@ -1,33 +1,32 @@
 package com.poly_team.fnews.view.home
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.poly_team.fnews.R
+import com.poly_team.fnews.databinding.FragmentHomeBinding
+import com.poly_team.fnews.utility.makeFullscreen
+import com.poly_team.fnews.view.BaseFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+    override fun getLayout() = R.layout.fragment_home
 
-    companion object {
-        fun newInstance() = HomeFragment()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        makeFullscreen(requireActivity())
     }
 
-    private lateinit var viewModel: HomeViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupBottomBar()
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-        // TODO: Use the ViewModel
+    private fun setupBottomBar() {
+        val navHostFragment =
+            childFragmentManager.findFragmentById(R.id.home_nav_host) as NavHostFragment
+        val navController = navHostFragment.navController
+        mBinding!!.bottomBar.setupWithNavController(navController)
     }
-
 }

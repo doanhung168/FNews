@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_gragh"
+    app:startDestination="@id/newsFragment">
+
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.poly_team.fnews.view.home.video.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" />
+    <fragment
+        android:id="@+id/personalFragment"
+        android:name="com.poly_team.fnews.view.home.personal.PersonalFragment"
+        android:label="fragment_pesonal"
+        tools:layout="@layout/fragment_personal" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.poly_team.fnews.view.home.news.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/searchingFragment"
+        android:name="com.poly_team.fnews.view.home.searching.SearchingFragment"
+        android:label="fragment_searching"
+        tools:layout="@layout/fragment_searching" />
+    <fragment
+        android:id="@+id/trendingFragment"
+        android:name="com.poly_team.fnews.view.home.trending.TrendingFragment"
+        android:label="fragment_trending"
+        tools:layout="@layout/fragment_trending" />
+</navigation>

@@ -1,14 +1,13 @@
 package com.poly_team.fnews.view.onboard
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import com.poly_team.fnews.R
 import com.poly_team.fnews.databinding.FragmentOnboardBinding
+import com.poly_team.fnews.utility.makeNoFullscreen
 import com.poly_team.fnews.view.BaseFragment
 import com.poly_team.fnews.view.onboard.OnboardViewModel.Companion.AUTO_LOGIN_FAILURE
 import com.poly_team.fnews.view.onboard.OnboardViewModel.Companion.AUTO_LOGIN_SUCCESS
@@ -60,6 +59,6 @@ class OnboardFragment : BaseFragment<FragmentOnboardBinding>() {
 
     override fun onStop() {
         super.onStop()
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        makeNoFullscreen(requireActivity())
     }
 }

@@ -2,7 +2,10 @@ package com.poly_team.fnews.utility
 
 import android.app.Activity
 import android.app.Application
+import android.os.Build
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -39,6 +42,25 @@ fun hideKeyboard(activity: Activity) {
         view = View(activity)
     }
     imm.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun makeFullscreen(activity: Activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        activity.window.insetsController?.hide(WindowInsets.Type.statusBars())
+    } else {
+        activity.window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+    }
+}
+
+fun makeNoFullscreen(activity: Activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        activity.window.insetsController?.show(WindowInsets.Type.statusBars())
+    } else {
+        activity.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+    }
 }
 
 fun saveToken(app: Application, token: String) {

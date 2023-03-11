@@ -73,6 +73,8 @@
     <string name="watch_email_to_find_password">Vui lòng kiểm tra email để thay đổi mật khẩu mới!</string>
     <string name="ok">Đồng ý</string>
     <string name="begin_app">Bắt đầu</string>
-
+    <string name="news">Tin tức</string>
+    <string name="video">Video</string>
+    <string name="trending">Xu hướng</string>
 
 </resources>
