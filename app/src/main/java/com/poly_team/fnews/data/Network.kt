@@ -1,5 +1,6 @@
 package com.poly_team.fnews.data
 
+import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

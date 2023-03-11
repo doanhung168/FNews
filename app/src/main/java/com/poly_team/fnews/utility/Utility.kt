@@ -2,12 +2,11 @@ package com.poly_team.fnews.utility
 
 import android.app.Activity
 import android.app.Application
-import android.os.Build
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
+import android.view.ViewGroup.MarginLayoutParams
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.core.view.*
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
 
@@ -45,21 +44,30 @@ fun hideKeyboard(activity: Activity) {
 }
 
 fun makeFullscreen(activity: Activity) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        activity.window.insetsController?.hide(WindowInsets.Type.statusBars())
-    } else {
-        activity.window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+    WindowCompat.setDecorFitsSystemWindows(activity.window, false)
+}
+
+fun updatePaddingWithSystemInsets(view: View) {
+    ViewCompat.setOnApplyWindowInsetsListener(view) { updatedView, windowInsets ->
+        val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+        updatedView.updatePadding(0, insets.top, 0, 0)
+        WindowInsetsCompat.CONSUMED
     }
 }
 
-fun makeNoFullscreen(activity: Activity) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        activity.window.insetsController?.show(WindowInsets.Type.statusBars())
-    } else {
-        activity.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+fun updateMarginWithSystemInsets(view: View, update: Boolean) {
+    ViewCompat.setOnApplyWindowInsetsListener(view) { updatedView, windowInsets ->
+        if (update) {
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            updatedView.updateLayoutParams<MarginLayoutParams> {
+                bottomMargin = insets.bottom
+            }
+        } else {
+            updatedView.updateLayoutParams<MarginLayoutParams> {
+                bottomMargin = 0
+            }
+        }
+        WindowInsetsCompat.CONSUMED
     }
 }
 

@@ -36,6 +36,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updatePaddingWithSystemInsets(mBinding!!.root)
         setupViewModel()
         listenEvent()
         loginWithFbAction()

@@ -1,4 +1,4 @@
-package com.poly_team.fnews.view.onboard
+package com.poly_team.fnews.view
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -7,14 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.poly_team.fnews.data.repository.AuthRepository
 import com.poly_team.fnews.utility.getFirstRun
 import com.poly_team.fnews.utility.getToken
-import com.poly_team.fnews.view.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnboardViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val mApp: Application, private val mAuthRepository: AuthRepository
 ) : BaseViewModel() {
 
@@ -50,16 +49,15 @@ class OnboardViewModel @Inject constructor(
     }
 
     @Suppress("UNCHECKED_CAST")
-    class OnboardViewModelFactory(
+    class MainViewModelFactory(
         private var mApp: Application, private val mAuthRepository: AuthRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(OnboardViewModel::class.java)) {
-                return OnboardViewModel(mApp, mAuthRepository) as T
+            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+                return MainViewModel(mApp, mAuthRepository) as T
             }
             throw Exception("Unable construct view_model")
         }
     }
-
 
 }

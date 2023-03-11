@@ -1,13 +1,12 @@
 package com.poly_team.fnews.view
 
 import android.annotation.SuppressLint
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -33,6 +32,15 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     protected fun enableScreen() {
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (!mNavController.popBackStack()) {
+                requireActivity().finish()
+            }
+        }
     }
 
     override fun onCreateView(

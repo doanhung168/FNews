@@ -3,22 +3,97 @@ package com.poly_team.fnews.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup.MarginLayoutParams
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
-import androidx.fragment.app.Fragment
+import androidx.core.splashscreen.SplashScreen
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.fragment.NavHostFragment
 import com.poly_team.fnews.R
+import com.poly_team.fnews.utility.makeFullscreen
+import com.poly_team.fnews.view.MainViewModel.Companion.AUTO_LOGIN_FAILURE
+import com.poly_team.fnews.view.MainViewModel.Companion.AUTO_LOGIN_SUCCESS
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private val mViewModel: MainViewModel by viewModels()
+
+    private lateinit var mSplashScreen: SplashScreen
+
+    private lateinit var mNavController: NavController
+    private lateinit var mGraph: NavGraph
+
+    private var mKeepSplashScreen = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setupViewModel()
+        setContentView()
+        direction()
+    }
+    private fun direction() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
+        mNavController = navHostFragment.navController
+        mGraph = mNavController.navInflater.inflate(R.navigation.main_nav_graph)
 
-        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
+        if (mViewModel.getIsRunFirstTime()) {
+            navigation(R.id.welcomeFragment)
+        }
+
+        val token = mViewModel.getAuthToken()
+        if (token == null) {
+            navigation(R.id.loginFragment)
+        } else {
+            mViewModel.autoLogin(token)
+        }
+
+    }
+
+    private fun setupViewModel() {
+        mViewModel._mEvent.observe(this) { event ->
+            when (event) {
+                AUTO_LOGIN_FAILURE -> {
+                    navigation(R.id.loginFragment)
+                }
+                AUTO_LOGIN_SUCCESS -> {
+                    navigation(R.id.homeFragment)
+                }
+            }
+        }
+    }
+
+    private fun navigation(destination: Int) {
+        mGraph.setStartDestination(destination)
+        mNavController.setGraph(mGraph, null)
+        mKeepSplashScreen = false
+    }
+
+    private fun setContentView() {
+        mSplashScreen = installSplashScreen()
+        mSplashScreen.setKeepOnScreenCondition { mKeepSplashScreen }
+        setContentView(R.layout.activity_main)
+        setupSystemInsets()
+        makeFullscreen(this)
+    }
+
+    private fun setupSystemInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_nav_host)) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            view.updateLayoutParams<MarginLayoutParams> {
+                bottomMargin = insets.bottom
+            }
+            windowInsets
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -27,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         try {
             for (fragment in supportFragmentManager.fragments) {
                 val subFragments = fragment.childFragmentManager.fragments
-                for(subFragment in subFragments) {
+                for (subFragment in subFragments) {
                     subFragment.onActivityResult(requestCode, resultCode, data)
                 }
             }
