@@ -41,24 +41,30 @@ fun hideKeyboard(activity: Activity) {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-object Token {
-    fun save(app: Application, token: String) {
-        val share = app.getSharedPreferences("token", Activity.MODE_PRIVATE)
-        val edit = share.edit()
-        edit.putString("token", token)
-        edit.apply()
-    }
-
-    fun get(app: Application): String? {
-        val share = app.getSharedPreferences("token", Activity.MODE_PRIVATE)
-        return share.getString("token", null)
-    }
-
-    fun clear(app: Application) {
-        val share = app.getSharedPreferences("token", Activity.MODE_PRIVATE)
-        share.edit().clear().apply()
-    }
+fun saveToken(app: Application, token: String) {
+    val share = app.getSharedPreferences("app", Activity.MODE_PRIVATE)
+    val edit = share.edit()
+    edit.putString("token", token)
+    edit.apply()
 }
+
+fun getToken(app: Application): String? {
+    val share = app.getSharedPreferences("app", Activity.MODE_PRIVATE)
+    return share.getString("token", null)
+}
+
+fun saveFirstRun(app: Application) {
+    val share = app.getSharedPreferences("app", Activity.MODE_PRIVATE)
+    val edit = share.edit()
+    edit.putBoolean("first_run", false)
+    edit.apply()
+}
+
+fun getFirstRun(app: Application): Boolean {
+    val share = app.getSharedPreferences("app", Activity.MODE_PRIVATE)
+    return share.getBoolean("first_run", true)
+}
+
 
 @BindingAdapter("errorText")
 fun setErrorText(textView: TextView, errorText: String) {

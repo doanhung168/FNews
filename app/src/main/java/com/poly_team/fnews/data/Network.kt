@@ -3,6 +3,7 @@ package com.poly_team.fnews.data
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface Network {
@@ -37,6 +38,11 @@ interface Network {
     @POST("users/forgotPassword")
     suspend fun findPassword(
         @Field("email") email: String
+    ) : NetworkResponse
+
+    @POST("users/autoLogin")
+    suspend fun autoLogin(
+        @Header("Authorization") token : String
     ) : NetworkResponse
 
 

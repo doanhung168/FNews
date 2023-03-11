@@ -72,6 +72,7 @@
     <string name="confirm_password">Nhập lại mật khẩu</string>
     <string name="watch_email_to_find_password">Vui lòng kiểm tra email để thay đổi mật khẩu mới!</string>
     <string name="ok">Đồng ý</string>
+    <string name="begin_app">Bắt đầu</string>
 
 
 </resources>

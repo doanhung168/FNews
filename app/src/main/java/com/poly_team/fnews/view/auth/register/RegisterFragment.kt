@@ -44,8 +44,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
     private fun setupViewModel() {
         with(mBinding!!) {
-            lifecycleOwner = this@RegisterFragment.viewLifecycleOwner
-            viewModel = this@RegisterFragment.mRegisterViewModel
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = mRegisterViewModel
         }
     }
 

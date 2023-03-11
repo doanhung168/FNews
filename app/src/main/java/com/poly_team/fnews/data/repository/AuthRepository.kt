@@ -3,7 +3,7 @@ package com.poly_team.fnews.data.repository
 import android.app.Application
 import com.poly_team.fnews.data.Network
 import com.poly_team.fnews.data.NetworkResponse
-import com.poly_team.fnews.utility.Token
+import com.poly_team.fnews.utility.saveToken
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -18,6 +18,7 @@ class AuthRepository @Inject constructor(
 
     companion object {
         private const val TAG = "AuthRepository"
+        private const val AUTH_METHOD = "Bearer "
         private const val AUTH_KEY = "Authorization"
         const val FACEBOOK_ACCOUNT = "facebook"
         const val GOOGLE_ACCOUNT = "google"
@@ -28,7 +29,7 @@ class AuthRepository @Inject constructor(
             val response = mNetwork.login(username, password)
             val result = response.body()!!.success
             if (result) {
-                Token.save(mApp, response.headers()[AUTH_KEY]!!)
+                saveToken(mApp, response.headers()[AUTH_KEY]!!)
             }
             result
         }
@@ -44,7 +45,7 @@ class AuthRepository @Inject constructor(
             val response = mNetwork.loginWith(accountType, accountId, displayName, avatar, email)
             val result = response.body()!!.success
             if (result) {
-                Token.save(mApp, response.headers()[AUTH_KEY]!!)
+                saveToken(mApp, response.headers()[AUTH_KEY]!!)
             }
             result
         }
@@ -57,6 +58,11 @@ class AuthRepository @Inject constructor(
     suspend fun findPassword(email: String) =
         withContext(mDispatcher) {
             return@withContext mNetwork.findPassword(email)
+        }
+
+    suspend fun autoLogin(token: String) =
+        withContext(mDispatcher) {
+            return@withContext mNetwork.autoLogin(AUTH_METHOD + token)
         }
 
 }

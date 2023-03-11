@@ -31,8 +31,8 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>() {
 
     private fun setupViewModel() {
         with(mBinding!!) {
-            lifecycleOwner = this@ForgotPasswordFragment.viewLifecycleOwner
-            viewModel = this@ForgotPasswordFragment.mViewModel
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = mViewModel
         }
     }
 

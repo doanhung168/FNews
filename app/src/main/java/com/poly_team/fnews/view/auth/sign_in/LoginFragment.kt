@@ -45,8 +45,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private fun setupViewModel() {
         with(mBinding!!) {
-            lifecycleOwner = this@LoginFragment.viewLifecycleOwner
-            viewModel = this@LoginFragment.mLoginViewModel
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = mLoginViewModel
         }
 
     }
@@ -99,8 +99,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             _mEvent.observe(viewLifecycleOwner) { message ->
                 when (message) {
                     LOGIN_SUCCESS -> {
-                        mBinding!!.tvError.visibility = View.VISIBLE
-                        mBinding!!.tvError.text = "Success"
+                        mNavController.navigate(R.id.action_loginFragment_to_homeFragment)
                     }
                     NAV_REGISTER_SCREEN -> {
                         mNavController.navigate(R.id.action_loginFragment_to_registerFragment)
