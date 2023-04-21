@@ -6,7 +6,8 @@ import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.poly_team.fnews.data.Network
+import com.poly_team.fnews.data.network.BASE_URL
+import com.poly_team.fnews.data.network.Network
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,8 +25,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    private const val BASE_URL = "http://192.168.0.101:3000/"
 
     @Singleton
     @Provides

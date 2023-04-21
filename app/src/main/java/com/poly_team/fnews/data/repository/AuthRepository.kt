@@ -1,8 +1,8 @@
 package com.poly_team.fnews.data.repository
 
 import android.app.Application
-import com.poly_team.fnews.data.Network
-import com.poly_team.fnews.data.NetworkResponse
+import com.poly_team.fnews.data.network.Network
+import com.poly_team.fnews.data.network.NetworkResponse
 import com.poly_team.fnews.utility.saveToken
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

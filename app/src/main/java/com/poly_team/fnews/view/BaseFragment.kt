@@ -14,6 +14,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.poly_team.fnews.R
 
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
@@ -55,7 +56,7 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mNavController = Navigation.findNavController(view)
+        mNavController = Navigation.findNavController(requireActivity(), R.id.main_nav_host)
 
         ViewCompat.setOnApplyWindowInsetsListener(
             requireActivity().window.decorView

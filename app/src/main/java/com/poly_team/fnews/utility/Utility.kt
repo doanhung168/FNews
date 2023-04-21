@@ -2,15 +2,16 @@ package com.poly_team.fnews.utility
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.view.View
-import android.view.ViewGroup.MarginLayoutParams
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.core.view.*
-import androidx.databinding.BindingAdapter
+import com.poly_team.fnews.R
 import com.google.android.material.textfield.TextInputLayout
 
-
+private const val DAY_DURATION = (1000 * 60 * 60 * 24).toLong()
+private const val HOUR_DURATION = (1000 * 60 * 60).toLong()
+private const val MINUTE_DURATION = (1000 * 60).toLong()
 fun String.isNotValidUsername(): Boolean {
     return this.length < 6
 }
@@ -18,7 +19,7 @@ fun String.isNotValidUsername(): Boolean {
 //Minimum eight characters, at least one letter and one number
 fun String.isNotValidPassword(): Boolean {
     val result =
-        this.matches(Regex("^(?=.*\\d)(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,}$"))
+        this.matches(Regex("^(?=.*\\d)(?=.*[A-Z])(?=.*[!@#&]).{8,30}$"))
     return !result
 }
 
@@ -73,13 +74,24 @@ fun getFirstRun(app: Application): Boolean {
 }
 
 
-@BindingAdapter("errorText")
-fun setErrorText(textView: TextView, errorText: String) {
-    if (errorText.isEmpty()) {
-        textView.visibility = View.GONE
-    } else {
-        textView.visibility = View.VISIBLE
+fun getTimeString(context: Context, time: Long): String? {
+    val numberTime = System.currentTimeMillis() - time
+    if (numberTime < 0) {
+        return ""
     }
-    textView.text = errorText
+    if (numberTime >= DAY_DURATION) {
+        val day = (numberTime / DAY_DURATION).toInt()
+        return context.getString(R.string.day_time_format, day)
+    }
+    if (numberTime >= HOUR_DURATION) {
+        val hour = (numberTime / HOUR_DURATION).toInt()
+        return context.getString(R.string.hour_time_format, hour)
+    }
+    val mm = (numberTime / MINUTE_DURATION).toInt()
+    return if (mm == 0) {
+        context.getString(R.string.minute_time_format, 1)
+    } else {
+        context.getString(R.string.minute_time_format, mm)
+    }
 }
 

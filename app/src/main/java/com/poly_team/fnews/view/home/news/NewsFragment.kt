@@ -2,20 +2,57 @@ package com.poly_team.fnews.view.home.news
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.tabs.TabLayoutMediator
 import com.poly_team.fnews.R
 import com.poly_team.fnews.databinding.FragmentNewsBinding
 import com.poly_team.fnews.view.BaseFragment
+import com.poly_team.fnews.view.auth.register.RegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding>() {
+
+    private lateinit var mNewsViewPagerAdaptor: NewsViewPagerAdaptor
+
     override fun getLayout() = R.layout.fragment_news
     override fun setInsets(left: Int, top: Int, right: Int, bottom: Int) {
-        mBinding?.contentToolbar?.setPadding(0, top, 0, 0)
+        mBinding?.toolbar?.setPadding(0, top + 24, 0, 24)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViewpager()
+    }
 
-
+    private fun setupViewpager() {
+        mBinding?.apply {
+            mNewsViewPagerAdaptor = NewsViewPagerAdaptor(this@NewsFragment)
+            viewPagerNews.adapter = mNewsViewPagerAdaptor
+            TabLayoutMediator(tabLayoutField, viewPagerNews) { tab, position ->
+                when(position) {
+                    0 -> {
+                        tab.text = "Tiêu điểm"
+                    }
+                    1 -> {
+                        tab.text = "Cuộc thi"
+                    }
+                    2 -> {
+                        tab.text = "Tuyển sinh"
+                    }
+                    3 -> {
+                        tab.text = "Thể thao"
+                    }
+                    4 -> {
+                        tab.text = "Giao lưu"
+                    }
+                }
+            }.attach()
+        }
     }
 
 
