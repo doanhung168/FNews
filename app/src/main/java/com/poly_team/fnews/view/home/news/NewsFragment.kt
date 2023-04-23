@@ -2,6 +2,7 @@ package com.poly_team.fnews.view.home.news
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayoutMediator
@@ -19,6 +20,8 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
 
     private lateinit var mNewsViewPagerAdaptor: NewsViewPagerAdaptor
 
+    private val mViewModel: NewsViewModel by activityViewModels()
+
     override fun getLayout() = R.layout.fragment_news
     override fun setInsets(left: Int, top: Int, right: Int, bottom: Int) {
         mBinding?.toolbar?.setPadding(0, top + 24, 0, 24)
@@ -31,27 +34,14 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
 
     private fun setupViewpager() {
         mBinding?.apply {
-            mNewsViewPagerAdaptor = NewsViewPagerAdaptor(this@NewsFragment)
-            viewPagerNews.adapter = mNewsViewPagerAdaptor
-            TabLayoutMediator(tabLayoutField, viewPagerNews) { tab, position ->
-                when(position) {
-                    0 -> {
-                        tab.text = "Tiêu điểm"
-                    }
-                    1 -> {
-                        tab.text = "Cuộc thi"
-                    }
-                    2 -> {
-                        tab.text = "Tuyển sinh"
-                    }
-                    3 -> {
-                        tab.text = "Thể thao"
-                    }
-                    4 -> {
-                        tab.text = "Giao lưu"
-                    }
-                }
-            }.attach()
+            mViewModel._mFieldList.observe(viewLifecycleOwner) {fieldList ->
+                mNewsViewPagerAdaptor = NewsViewPagerAdaptor(this@NewsFragment, fieldList)
+                viewPagerNews.offscreenPageLimit = 8
+                viewPagerNews.adapter = mNewsViewPagerAdaptor
+                TabLayoutMediator(tabLayoutField, viewPagerNews) { tab, position ->
+                    tab.text = fieldList[position].value
+                }.attach()
+            }
         }
     }
 

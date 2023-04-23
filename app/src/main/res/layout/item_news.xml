@@ -5,7 +5,7 @@
     <data>
         <variable
             name="news"
-            type="com.poly_team.fnews.data.model.Media" />
+            type="com.poly_team.fnews.data.model.News" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -84,16 +84,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/imvLike"
             app:layout_constraintStart_toEndOf="@+id/tvLike"
             app:layout_constraintTop_toTopOf="@+id/imvLike" />
-
-        <TextView
-            android:id="@+id/tvDislike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="@{String.valueOf(news.disLike)}"
-            app:layout_constraintBottom_toBottomOf="@+id/imvDislike"
-            app:layout_constraintStart_toEndOf="@+id/imvDislike"
-            app:layout_constraintTop_toTopOf="@+id/imvDislike" />
 
 
         <ImageView

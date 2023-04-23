@@ -3,8 +3,6 @@ package com.poly_team.fnews.view.home.news.news_detail
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.webkit.WebSettings
-import android.webkit.WebView
 import androidx.navigation.fragment.navArgs
 import com.poly_team.fnews.R
 import com.poly_team.fnews.databinding.FragmentNewsContentBinding
@@ -25,8 +23,8 @@ class NewsContentFragment : BaseFragment<FragmentNewsContentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mArgs.media?.let { media ->
-            media.content?.let { content ->
+        mArgs.news?.let { news ->
+            news.content?.let { content ->
                 Log.i(TAG, "onViewCreated: $content")
                 mBinding?.webView?.apply {
                     settings.javaScriptEnabled = true

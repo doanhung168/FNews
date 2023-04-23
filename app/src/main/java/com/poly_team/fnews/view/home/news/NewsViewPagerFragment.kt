@@ -4,9 +4,8 @@ package com.poly_team.fnews.view.home.news
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.map
 import com.poly_team.fnews.R
 import com.poly_team.fnews.databinding.FragmentNewsViewPagerBinding
 import com.poly_team.fnews.view.BaseFragment
@@ -21,7 +20,7 @@ class NewsViewPagerFragment : BaseFragment<FragmentNewsViewPagerBinding>() {
 
     private val TAG = "NewsViewPagerFragment"
 
-    private val mNewsViewModel: NewsViewModel by viewModels()
+    private val mNewsViewModel: NewsViewModel by activityViewModels()
 
     @Inject
     lateinit var mNewsAdapter: NewsAdapter
@@ -37,9 +36,10 @@ class NewsViewPagerFragment : BaseFragment<FragmentNewsViewPagerBinding>() {
         mBinding?.lifecycleOwner = viewLifecycleOwner
         setupRecycleView()
 
-        arguments?.getString("field")?.let { field ->
+        arguments?.getString("fieldId")?.let {
             lifecycleScope.launch {
-                mNewsViewModel.mMediaList[field]?.collectLatest {
+                Log.e(TAG, "onViewCreated: $it")
+                mNewsViewModel.mNewsList[it]?.collectLatest {
                     mNewsAdapter.submitData(it)
                 }
             }

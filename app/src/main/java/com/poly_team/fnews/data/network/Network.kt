@@ -47,8 +47,14 @@ interface Network {
         @Header("Authorization") token : String
     ) : NetworkResponse
 
-    // Media
-    @GET("news") //
+
+    // Field
+    @GET("field")
+    @JvmSuppressWildcards
+    suspend fun getField() : NetworkResponse
+
+    // News
+    @GET("news")
     @JvmSuppressWildcards
     suspend fun getMedia(
         @QueryMap options : Map<String, Any>

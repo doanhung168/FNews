@@ -6,25 +6,25 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.poly_team.fnews.data.model.Media
+import com.poly_team.fnews.data.model.News
 import com.poly_team.fnews.databinding.ItemNewsBinding
 
-class NewsAdapter : PagingDataAdapter<Media, NewsViewHolder>(COMPARATOR) {
+class NewsAdapter : PagingDataAdapter<News, NewsViewHolder>(COMPARATOR) {
     private val TAG = "NewsAdapter"
 
     companion object {
-        private val COMPARATOR = object : DiffUtil.ItemCallback<Media>() {
-            override fun areItemsTheSame(oldItem: Media, newItem: Media): Boolean =
+        private val COMPARATOR = object : DiffUtil.ItemCallback<News>() {
+            override fun areItemsTheSame(oldItem: News, newItem: News): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Media, newItem: Media): Boolean =
+            override fun areContentsTheSame(oldItem: News, newItem: News): Boolean =
                 oldItem == newItem
         }
     }
 
-    private lateinit var mOnClickItem: (media: Media) -> Unit
+    private lateinit var mOnClickItem: (news: News) -> Unit
 
-    fun setListener(onClickItem: (media: Media) -> Unit) {
+    fun setListener(onClickItem: (news: News) -> Unit) {
         mOnClickItem = onClickItem
     }
 
@@ -43,18 +43,18 @@ class NewsAdapter : PagingDataAdapter<Media, NewsViewHolder>(COMPARATOR) {
 
 class NewsViewHolder(
     private val binding: ItemNewsBinding,
-    private val onClickItem: (media: Media) -> Unit
+    private val onClickItem: (news: News) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     companion object {
-        fun create(view: ViewGroup, onClickItem: (media: Media) -> Unit): NewsViewHolder {
+        fun create(view: ViewGroup, onClickItem: (news: News) -> Unit): NewsViewHolder {
             val inflater = LayoutInflater.from(view.context)
             val binding = ItemNewsBinding.inflate(inflater, view, false)
             return NewsViewHolder(binding, onClickItem)
         }
     }
 
-    fun bind(news: Media) {
+    fun bind(news: News) {
         binding.news = news
         binding.root.setOnClickListener {onClickItem(news)}
         binding.executePendingBindings()

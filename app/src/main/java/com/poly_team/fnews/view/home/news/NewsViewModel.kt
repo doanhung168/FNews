@@ -5,12 +5,11 @@ import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.poly_team.fnews.data.model.Media
-import com.poly_team.fnews.data.network.NEWS
-import com.poly_team.fnews.data.repository.AuthRepository
+import com.poly_team.fnews.data.model.Field
+import com.poly_team.fnews.data.model.News
+import com.poly_team.fnews.data.repository.FieldRepository
 import com.poly_team.fnews.data.repository.NewsRepository
 import com.poly_team.fnews.view.BaseViewModel
-import com.poly_team.fnews.view.auth.register.RegisterViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsViewModel @Inject constructor(
     mApp: Application,
-    mNewsRepository: NewsRepository
+    mNewsRepository: NewsRepository,
+    mFieldRepository: FieldRepository
 ) : BaseViewModel() {
 
     private val TAG = "NewsViewModel"
@@ -31,27 +31,31 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    var mMediaList: HashMap<String, Flow<PagingData<Media>>> = HashMap()
+    private val mFieldList = MutableLiveData<List<Field>>()
+    val _mFieldList: LiveData<List<Field>> = mFieldList
+
+    var mNewsList: HashMap<String, Flow<PagingData<News>>> = HashMap()
     private set
 
     init {
-        mMediaList["Hot"] = mNewsRepository.getNewsByField("Hot").cachedIn(viewModelScope)
-        mMediaList["Competition"] = mNewsRepository.getNewsByField("Competition").cachedIn(viewModelScope)
-        mMediaList["Admissions"] = mNewsRepository.getNewsByField("Admissions").cachedIn(viewModelScope)
-        mMediaList["Sport"] = mNewsRepository.getNewsByField("Sport").cachedIn(viewModelScope)
-        mMediaList["Exchange"] = mNewsRepository.getNewsByField("Exchange").cachedIn(viewModelScope)
+        viewModelScope.launch {
+            val fieldList = mFieldRepository.getField()
+            mFieldList.value = fieldList
+            fieldList.forEach {field ->
+                mNewsList[field.id as String] = mNewsRepository.getNewsByField(field.id as String)
+            }
+        }
     }
-
-
 
     @Suppress("UNCHECKED_CAST")
     class NewsViewModelFactory(
         private var mApp: Application,
-        private val mNewsRepository: NewsRepository
+        private val mNewsRepository: NewsRepository,
+        private val mFieldRepository: FieldRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(NewsViewModel::class.java)) {
-                return NewsViewModel(mApp, mNewsRepository) as T
+                return NewsViewModel(mApp, mNewsRepository, mFieldRepository) as T
             }
             throw Exception("Unable construct view_model")
         }

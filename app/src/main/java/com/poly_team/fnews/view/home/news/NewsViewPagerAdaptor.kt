@@ -4,37 +4,18 @@ package com.poly_team.fnews.view.home.news
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.poly_team.fnews.data.model.Field
 
 
-class NewsViewPagerAdaptor(mFragment: Fragment) : FragmentStateAdapter(mFragment) {
+class NewsViewPagerAdaptor(mFragment: Fragment, private val mFields: List<Field>) : FragmentStateAdapter(mFragment) {
 
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = mFields.size
 
     override fun createFragment(position: Int): Fragment {
         val fragment = NewsViewPagerFragment()
         val bundle = Bundle()
-        when(position) {
-            0 -> {
-                bundle.putString("field", "Hot")
-                fragment.arguments = bundle
-            }
-            1 -> {
-                bundle.putString("field", "Competition")
-                fragment.arguments = bundle
-            }
-            2 -> {
-                bundle.putString("field", "Admissions")
-                fragment.arguments = bundle
-            }
-            3 -> {
-                bundle.putString("field", "Sport")
-                fragment.arguments = bundle
-            }
-            4 -> {
-                bundle.putString("field", "Exchange")
-                fragment.arguments = bundle
-            }
-        }
+        bundle.putString("fieldId", mFields[position].id)
+        fragment.arguments = bundle
         return fragment
     }
 }

@@ -68,8 +68,8 @@
         android:name="com.poly_team.fnews.view.home.news.news_detail.NewsContentFragment"
         android:label="NewsContentFragment" >
         <argument
-            android:name="media"
-            app:argType="com.poly_team.fnews.data.model.Media"
+            android:name="news"
+            app:argType="com.poly_team.fnews.data.model.News"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
