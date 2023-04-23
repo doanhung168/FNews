@@ -19,8 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val mApp: Application,
-    private val mNewsRepository: NewsRepository
+    mApp: Application,
+    mNewsRepository: NewsRepository
 ) : BaseViewModel() {
 
     private val TAG = "NewsViewModel"
@@ -34,10 +34,15 @@ class NewsViewModel @Inject constructor(
     var mMediaList: HashMap<String, Flow<PagingData<Media>>> = HashMap()
     private set
 
-
-    fun getMediaList(field: String) {
-        mMediaList[field] = mNewsRepository.getNewsByField(field).cachedIn(viewModelScope)
+    init {
+        mMediaList["Hot"] = mNewsRepository.getNewsByField("Hot").cachedIn(viewModelScope)
+        mMediaList["Competition"] = mNewsRepository.getNewsByField("Competition").cachedIn(viewModelScope)
+        mMediaList["Admissions"] = mNewsRepository.getNewsByField("Admissions").cachedIn(viewModelScope)
+        mMediaList["Sport"] = mNewsRepository.getNewsByField("Sport").cachedIn(viewModelScope)
+        mMediaList["Exchange"] = mNewsRepository.getNewsByField("Exchange").cachedIn(viewModelScope)
     }
+
+
 
     @Suppress("UNCHECKED_CAST")
     class NewsViewModelFactory(

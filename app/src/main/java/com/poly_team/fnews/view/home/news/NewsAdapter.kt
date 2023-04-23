@@ -3,7 +3,6 @@ package com.poly_team.fnews.view.home.news
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +22,12 @@ class NewsAdapter : PagingDataAdapter<Media, NewsViewHolder>(COMPARATOR) {
         }
     }
 
+    private lateinit var mOnClickItem: (media: Media) -> Unit
+
+    fun setListener(onClickItem: (media: Media) -> Unit) {
+        mOnClickItem = onClickItem
+    }
+
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         Log.i(TAG, "onBindViewHolder: ")
         getItem(position)?.let {
@@ -31,24 +36,27 @@ class NewsAdapter : PagingDataAdapter<Media, NewsViewHolder>(COMPARATOR) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        NewsViewHolder.create(parent)
-
+        NewsViewHolder.create(parent, mOnClickItem)
 
 
 }
 
-class NewsViewHolder(private val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
+class NewsViewHolder(
+    private val binding: ItemNewsBinding,
+    private val onClickItem: (media: Media) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
 
     companion object {
-        fun create(view: ViewGroup): NewsViewHolder {
+        fun create(view: ViewGroup, onClickItem: (media: Media) -> Unit): NewsViewHolder {
             val inflater = LayoutInflater.from(view.context)
             val binding = ItemNewsBinding.inflate(inflater, view, false)
-            return NewsViewHolder(binding)
+            return NewsViewHolder(binding, onClickItem)
         }
     }
 
     fun bind(news: Media) {
         binding.news = news
+        binding.root.setOnClickListener {onClickItem(news)}
         binding.executePendingBindings()
     }
 }
