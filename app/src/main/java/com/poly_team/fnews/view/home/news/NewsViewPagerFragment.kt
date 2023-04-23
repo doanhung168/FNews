@@ -10,6 +10,7 @@ import androidx.paging.map
 import com.poly_team.fnews.R
 import com.poly_team.fnews.databinding.FragmentNewsViewPagerBinding
 import com.poly_team.fnews.view.BaseFragment
+import com.poly_team.fnews.view.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -37,7 +38,6 @@ class NewsViewPagerFragment : BaseFragment<FragmentNewsViewPagerBinding>() {
         setupRecycleView()
 
         arguments?.getString("field")?.let { field ->
-            mNewsViewModel.getMediaList(field)
             lifecycleScope.launch {
                 mNewsViewModel.mMediaList[field]?.collectLatest {
                     mNewsAdapter.submitData(it)
@@ -48,6 +48,10 @@ class NewsViewPagerFragment : BaseFragment<FragmentNewsViewPagerBinding>() {
 
     private fun setupRecycleView() {
         with(mBinding!!) {
+            mNewsAdapter.setListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToNewsContentFragment(it)
+                mNavController.navigate(action)
+            }
             rcvNews.adapter = mNewsAdapter
         }
     }

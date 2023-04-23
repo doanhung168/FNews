@@ -1,5 +1,9 @@
 package com.poly_team.fnews.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Media(
     var id: String? = null,
     var avatar: String? = null,
@@ -16,4 +20,4 @@ data class Media(
     var disLike : Int = 0,
     var time: Long = 0,
     var isSaved: Boolean = false
-)
+) : Parcelable

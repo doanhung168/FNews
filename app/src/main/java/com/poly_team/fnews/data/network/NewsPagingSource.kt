@@ -70,7 +70,7 @@ class NewsPagingSource(
             media.time = jObject.getLong("time")
 
             val tags = ArrayList<String>()
-            val jsonArrayTags = jObject.getJSONArray("tags");
+            val jsonArrayTags = jObject.getJSONArray("tags")
             for (i in 0 until jsonArrayTags.length()) {
                 tags.add(jsonArrayTags.getString(i))
             }

@@ -48,7 +48,7 @@ interface Network {
     ) : NetworkResponse
 
     // Media
-    @GET("media")
+    @GET("news")
     @JvmSuppressWildcards
     suspend fun getMedia(
         @QueryMap options : Map<String, Any>
