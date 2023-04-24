@@ -10,13 +10,14 @@ import com.poly_team.fnews.R
 import com.poly_team.fnews.databinding.FragmentNewsBinding
 import com.poly_team.fnews.view.BaseFragment
 import com.poly_team.fnews.view.auth.register.RegisterViewModel
+import com.poly_team.fnews.view.home.HomeBaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NewsFragment : BaseFragment<FragmentNewsBinding>() {
+class NewsFragment : HomeBaseFragment<FragmentNewsBinding>() {
 
     private lateinit var mNewsViewPagerAdaptor: NewsViewPagerAdaptor
 

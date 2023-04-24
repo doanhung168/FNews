@@ -56,7 +56,7 @@
                         app:tabGravity="fill"
                         app:tabMode="scrollable"
                         app:tabIndicatorHeight="0dp"
-                        app:tabTextColor="#D7FFFFFF"
+                        app:tabTextColor="#9AFFFFFF"
                         app:tabSelectedTextColor="@color/white"
                         app:tabInlineLabel="true"
                         android:layout_height="wrap_content"

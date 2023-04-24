@@ -58,19 +58,6 @@
         android:name="com.poly_team.fnews.view.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_newsContentFragment"
-            app:destination="@id/newsContentFragment" />
     </fragment>
-    <fragment
-        tools:layout="@layout/fragment_news_content"
-        android:id="@+id/newsContentFragment"
-        android:name="com.poly_team.fnews.view.home.news.news_detail.NewsContentFragment"
-        android:label="NewsContentFragment" >
-        <argument
-            android:name="news"
-            app:argType="com.poly_team.fnews.data.model.News"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
+
 </navigation>

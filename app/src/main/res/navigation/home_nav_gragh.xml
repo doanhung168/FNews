@@ -19,7 +19,11 @@
         android:id="@+id/newsFragment"
         android:name="com.poly_team.fnews.view.home.news.NewsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_newsContentFragment"
+            app:destination="@id/newsContentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchingFragment"
         android:name="com.poly_team.fnews.view.home.searching.SearchingFragment"
@@ -30,4 +34,16 @@
         android:name="com.poly_team.fnews.view.home.trending.TrendingFragment"
         android:label="fragment_trending"
         tools:layout="@layout/fragment_trending" />
+
+    <fragment
+        tools:layout="@layout/fragment_news_content"
+        android:id="@+id/newsContentFragment"
+        android:name="com.poly_team.fnews.view.home.news.news_detail.NewsContentFragment"
+        android:label="NewsContentFragment" >
+        <argument
+            android:name="news"
+            app:argType="com.poly_team.fnews.data.model.News"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

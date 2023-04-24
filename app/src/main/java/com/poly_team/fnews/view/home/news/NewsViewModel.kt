@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsViewModel @Inject constructor(
     mApp: Application,
-    mNewsRepository: NewsRepository,
+    private val mNewsRepository: NewsRepository,
     mFieldRepository: FieldRepository
 ) : BaseViewModel() {
 
@@ -45,6 +45,11 @@ class NewsViewModel @Inject constructor(
                 mNewsList[field.id as String] = mNewsRepository.getNewsByField(field.id as String)
             }
         }
+    }
+
+    fun loadData(fieldId: String) {
+        mNewsList[fieldId] = mNewsRepository.getNewsByField(fieldId)
+
     }
 
     @Suppress("UNCHECKED_CAST")
