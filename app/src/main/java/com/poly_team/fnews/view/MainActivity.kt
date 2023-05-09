@@ -2,6 +2,7 @@ package com.poly_team.fnews.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -114,5 +115,10 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.d("ERROR", e.toString())
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.clear()
     }
 }

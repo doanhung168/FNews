@@ -3,8 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
 
     <application
+        android:windowSoftInputMode="adjustResize"
         android:hardwareAccelerated="true"
         android:name=".FnewsApplication"
         android:allowBackup="true"
@@ -54,6 +62,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+        <service android:name=".view.home.ReadNewsService"
+            android:enabled="true"
+            android:exported="true" />
 
     </application>
 

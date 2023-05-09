@@ -7,6 +7,7 @@ import retrofit2.http.*
 const val BASE_URL = "http://192.168.0.102:3000/"
 const val NEWS = "news"
 const val VIDEO = "video"
+
 interface Network {
 
     // Auth
@@ -40,26 +41,42 @@ interface Network {
     @POST("auth/forgot-password")
     suspend fun findPassword(
         @Field("email") email: String
-    ) : NetworkResponse
+    ): NetworkResponse
 
     @POST("auth/auto-login")
     suspend fun autoLogin(
-        @Header("Authorization") token : String
-    ) : NetworkResponse
+        @Header("Authorization") token: String
+    ): NetworkResponse
 
 
     // Field
     @GET("field")
     @JvmSuppressWildcards
-    suspend fun getField() : NetworkResponse
+    suspend fun getField(): NetworkResponse
 
     // News
     @GET("news")
     @JvmSuppressWildcards
     suspend fun getMedia(
-        @QueryMap options : Map<String, Any>
-    ) : NetworkResponse
+        @QueryMap options: Map<String, Any>
+    ): NetworkResponse
 
+    @GET("comment/get-comment-to-show")
+    @JvmSuppressWildcards
+    suspend fun getCommentOfNews(
+        @Query("targetType") targetType: Int,
+        @Query("target") target: String
+    ): NetworkResponse
+
+    @FormUrlEncoded
+    @POST("/comment/")
+    @JvmSuppressWildcards
+    suspend fun sendComment(
+        @Field("content") content: String,
+        @Field("target") target: String,
+        @Field("target_type") targetType: Int,
+        @Header("Authorization") token: String
+    ) : NetworkResponse
 
 
 }

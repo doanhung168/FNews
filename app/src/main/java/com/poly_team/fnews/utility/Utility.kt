@@ -77,7 +77,7 @@ fun getFirstRun(app: Application): Boolean {
 fun getTimeString(context: Context, time: Long): String? {
     val numberTime = System.currentTimeMillis() - time
     if (numberTime < 0) {
-        return ""
+        return context.getString(R.string.just_time)
     }
     if (numberTime >= DAY_DURATION) {
         val day = (numberTime / DAY_DURATION).toInt()

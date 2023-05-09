@@ -8,7 +8,10 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 abstract class BaseViewModel : ViewModel() {
 
     companion object {
-        const val HIDE_KEYBOARD_EVENT = 111
+        const val HIDE_KEYBOARD_EVENT = 1
+        const val NO_AUTH_EVENT = 2
+        const val COMMENT_SUCCESSFULLY = 3
+        const val COMMENT_FAILURE = 4
     }
 
     protected val mEvent = SingleLiveEvent<Int>()

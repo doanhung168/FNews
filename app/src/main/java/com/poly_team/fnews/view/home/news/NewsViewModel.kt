@@ -49,7 +49,6 @@ class NewsViewModel @Inject constructor(
 
     fun loadData(fieldId: String) {
         mNewsList[fieldId] = mNewsRepository.getNewsByField(fieldId)
-
     }
 
     @Suppress("UNCHECKED_CAST")

@@ -1,11 +1,13 @@
 package com.poly_team.fnews.di
 
 import android.content.Context
+import androidx.room.Room
 import com.facebook.CallbackManager
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.poly_team.fnews.data.local.AppDatabase
 import com.poly_team.fnews.data.network.BASE_URL
 import com.poly_team.fnews.data.network.Network
 import dagger.Module
@@ -71,5 +73,15 @@ object AppModule {
     @Provides
     fun provideDispatcher(): CoroutineDispatcher {
         return Dispatchers.IO
+    }
+
+    @Singleton
+    @Provides
+    fun provideDatabase(
+        @ApplicationContext app: Context,
+    ): AppDatabase {
+        return Room.databaseBuilder(app, AppDatabase::class.java, "fnews-database")
+            .allowMainThreadQueries()
+            .build()
     }
 }

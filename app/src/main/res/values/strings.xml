@@ -48,6 +48,7 @@
     <string name="minute_time_format">%d phút trước</string>
     <string name="hour_time_format">%d giờ trước</string>
     <string name="day_time_format">%d ngày trước</string>
+    <string name="just_time">Vừa xong</string>
     <string name="sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit dolor sit amet, consectetur adipiscing elit.</string>
     <string name="delete_notify">Xóa thông báo này</string>
     <string name="prevent_notify">Tắt thông báo cho bài viết này</string>
@@ -76,5 +77,17 @@
     <string name="news">Tin tức</string>
     <string name="video">Video</string>
     <string name="trending">Xu hướng</string>
+
+    //
+    <string name="watch_news">Xem tin</string>
+    <string name="read_news">Đọc báo</string>
+    <string name="hear_news">Nghe báo</string>
+    <string name="comment_news">Bình luận</string>
+    <string name="channel_description">This a notifcation for informing news</string>
+    <string name="relative_new">Bài viết liên quan</string>
+    <string name="interesting">Quan tâm</string>
+    <string name="_new">Mới nhất</string>
+    <string name="enter_comment">Nhập bình luận của bạn …</string>
+    <string name="view_more_comment">Xem thêm %d bình luận</string>
 
 </resources>

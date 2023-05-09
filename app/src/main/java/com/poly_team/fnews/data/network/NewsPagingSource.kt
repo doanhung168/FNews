@@ -70,6 +70,10 @@ class NewsPagingSource(
             news.field = jObject.getString("field")
             news.like = jObject.getInt("like")
 
+            if(jObject.has("view")) {
+                news.view = jObject.getLong("view")
+            }
+
             if(jObject.has("time")) {
                 news.time = jObject.getLong("time")
             }

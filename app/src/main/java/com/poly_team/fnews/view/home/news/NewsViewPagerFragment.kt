@@ -2,7 +2,6 @@ package com.poly_team.fnews.view.home.news
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.poly_team.fnews.R
 import com.poly_team.fnews.databinding.FragmentNewsViewPagerBinding
-import com.poly_team.fnews.view.BaseFragment
 import com.poly_team.fnews.view.home.HomeBaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -23,7 +21,7 @@ class NewsViewPagerFragment : HomeBaseFragment<FragmentNewsViewPagerBinding>() {
 
     private val TAG = "NewsViewPagerFragment"
 
-    private var mLoadFlag = false
+    private var mLoadedDataFlag = false
 
     private val mNewsViewModel: NewsViewModel by activityViewModels()
 
@@ -44,7 +42,11 @@ class NewsViewPagerFragment : HomeBaseFragment<FragmentNewsViewPagerBinding>() {
         mBinding = DataBindingUtil.inflate(inflater, getLayout(), container, false)
         mBinding?.lifecycleOwner = viewLifecycleOwner
         setupRecycleView()
-        loadData()
+
+        if(!mLoadedDataFlag) {
+            loadData()
+        }
+
         setupRefreshLayout()
         return mBinding?.root
     }
@@ -53,7 +55,7 @@ class NewsViewPagerFragment : HomeBaseFragment<FragmentNewsViewPagerBinding>() {
         arguments?.getString("fieldId")?.let {
             lifecycleScope.launch {
                 mNewsViewModel.mNewsList[it]?.collectLatest {
-                    mLoadFlag = true
+                    mLoadedDataFlag = true
                     mNewsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
                 }
             }
@@ -67,7 +69,7 @@ class NewsViewPagerFragment : HomeBaseFragment<FragmentNewsViewPagerBinding>() {
                     mNewsViewModel.loadData(it)
                     lifecycleScope.launch {
                         mNewsViewModel.mNewsList[it]?.collectLatest {
-                            mLoadFlag = true
+                            mLoadedDataFlag = true
                             refreshLayout.isRefreshing = false
                             mNewsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
                         }
@@ -79,7 +81,7 @@ class NewsViewPagerFragment : HomeBaseFragment<FragmentNewsViewPagerBinding>() {
 
     private fun setupRecycleView() {
         with(mBinding!!) {
-            if(mLoadFlag) {
+            if(mLoadedDataFlag) {
                 stopShimmerLayout()
             }
 
@@ -105,7 +107,7 @@ class NewsViewPagerFragment : HomeBaseFragment<FragmentNewsViewPagerBinding>() {
 
     override fun onDetach() {
         super.onDetach()
-        mLoadFlag = false
+        mLoadedDataFlag = false
     }
 
 
